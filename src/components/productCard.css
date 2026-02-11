@@ -1,0 +1,14 @@
+.card{
+    border:1px solid #ccc;
+    border-radius:5px;
+    padding:10px;
+    box-shadow: 2px 2px 12px #aaa;
+    width:200px;
+    margin:10px;
+    background-color: beige;
+}
+
+.fancy-border{
+    border:2px dashed #f00;
+    padding:5px;
+}
