@@ -1,31 +1,45 @@
+const url = "https://gksizmrizfcykivsjart.supabase.co"
+const key = "sb_publishable_pg8nrtrofcmb1kuRhUM18Q_YMy5xaU-"
+
 import { useState } from "react"
+import { createClient } from "@supabase/supabase-js"
+import toast from "react-hot-toast"
+import uploadfile from "../utils/mediaUpload"
+
+const supabase = createClient(url,key)
 
 export default function TestPage(){
 
-    const[count,setCount] = useState(0)
-    
+    const [file,setfile] = useState(null)
 
-    function increment(){
-        setCount(count + 1)
+    function handleUpload(){
+        uploadfile(file).then(
+            (url)=>{
+                console.log(url)
+                toast.success("File uploaded successfully")
+            }
+        ).catch(
+            (error) =>{
+                console.error("Error uploading file:", error)
+                toast.error(error)
+
+            }
+        )
+
     }
-    function decrement(){ 
-        setCount(count - 1)
-    }
-    return(
-        <div className="w-full h-screen bg-amber-200 flex justify-center items-center">
-            <div className="w-[400px] h-[400px] bg-white flex flex-col justify-center items-center">
-                <h1 className="text-5xl font-bold">{count}</h1>
-                <div className="w-full flex justify-center items-center  h-[100px]">
-                    <button onClick={decrement} className = "w-[100px] bg-blue-500 h-[45px] justify-center items-center text-amber-50 text-3xl mx-2  rounded-full">
-                        -
-                    </button>
-                    <button onClick={increment} className = "w-[100px] bg-blue-500 h-[45px] justify-center items-center text-amber-50 text-3xl mx-2 rounded-full">
-                        +
-                    </button>
-                </div>
 
-            </div>
+        return(
+        <div className="w-full h-screen flex justify-center items-center">
+            <input type="file" onChange={
 
+                (e)=>{
+            
+                    setfile(e.target.files[0])
+                }}/>
+                <button onClick={handleUpload} className="bg-blue-500 text-white p-2 rounded-md ml-4 cursor-pointer ">
+                    upload
+                </button>
+                    
         </div>
     )
-}
+} 
