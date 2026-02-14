@@ -5,6 +5,7 @@ import { IoPeople } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import ProductsAdminPage from "./admin/productsAdminPage";
 import AddProductPage from "./admin/addProductPage";
+import UpdateProductPage from "./admin/updateProduct";
 
 
 
@@ -24,6 +25,7 @@ export default function AdminPage() {
                     <Route path="/products" element={<ProductsAdminPage/>}/>
                     <Route path="/orders" element={<h1>Orders</h1>}/>
                     <Route path="/newproduct" element={<AddProductPage/>}/>
+                    <Route path="/updateProduct" element={<UpdateProductPage/>}/>
                 </Routes>
             </div>
 
