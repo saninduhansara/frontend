@@ -146,7 +146,7 @@ export default function ProductsAdminPage() {
                                                             console.log("Product deleted successfully");
                                                             console.log(res.data);
                                                             toast.success("Product deleted successfully");
-                                                            setisLoading(!setisLoading)
+                                                            setisLoading(!isloading)
                                                         }
                                                     ).catch(
                                                         (error)=>{

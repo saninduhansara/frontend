@@ -1,33 +1,37 @@
-import "./productCard.css"
+import { Link } from "react-router-dom"
 
-export default function ProductCard(props) {
+export default function ProductCard(props){
 
-    return (
-        <div className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition duration-300 w-64">
+    const product = props.product
+    return(
+        <Link to={"/overview/" + product.productId} className = "w-[300px] h-[400px] shadow-2xl shrink-0 rounded-xl overflow-hidden">
+            <img src = {product.images[0]}  className="w-full h-[275px] object-cover"/>
+            <div className="w-full h-[125px]  flex flex-col p-[3px]">
+                <span className = "text-gray-400 text-[12px]">{product.productId}</span>
+                <h1 className="text-lg font-bold">
+                    {product.name}  {" "}
+                    <span className = "text-gray-500 text-[14px] "> {product.category}
 
-            {/* Product Image */}
-            <img 
-                src={props.image} 
-                alt={props.name} 
-                className="w-full h-48 object-cover"
-            />
-
-            {/* Product Content */}
-            <div className="p-4">
-
-                <h1 className="text-lg font-semibold text-gray-800 truncate">
-                    {props.name}
+                    </span>
+                
                 </h1>
+                <div>
+                        {
+                            product.labelledPrice > product.price ?
+                            <p>
+                                <span className="line-through mr-[10px]">{product.labelledPrice}</span>
+                                <span >{product.price.toFixed(2)}</span>
 
-                <p className="text-green-600 font-bold mt-2">
-                    ${props.price}
-                </p>
+                            </p> : <span>{product.price.toFixed(2)}</span>
+                        }
 
-                <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                    View More
-                </button>
+                </div>
+                
 
             </div>
-        </div>
+
+
+
+        </Link>
     )
 }
