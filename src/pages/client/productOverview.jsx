@@ -1,15 +1,16 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Loader from "../../components/loader"
 import ImageSlider from "../../components/imageSlider"
+import { addToCart, getCart } from "../../utils/cart"
 
 export default function ProductOverview() {
     const params = useParams()
     const [product, setProduct] = useState(null)
     const [status, setStatus] = useState("loading") // loading, error, success
-
+    const navigate = useNavigate()
     useEffect(
         ()=>{
             if(status == "loading"){
@@ -61,8 +62,32 @@ export default function ProductOverview() {
 
                     </div>
                     <div className="w-full flex flex-row justify-center items-center mt-[20px]  gap-[10px]">
-                        <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-[2xl text-white bg-blue-900 border-[3px] border-blue-500  hover:bg-white hover:text-blue-900">Buy Now</button>
-                        <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-[2xl text-white bg-blue-600 border-[3px] border-blue-600   hover:bg-white hover:text-blue-900">Add to Cart</button>
+                        <button
+                        onClick={
+                            ()=>{
+                                navigate("/checkout", {state: { items:
+                                    [
+                                        {
+                                            productId: product.productId ,
+                                            quantity: 1,
+                                            name: product.name,
+                                            image: product.images[0],
+                                            price: product.price
+                                        }
+
+                                    ]
+
+                                }} )
+                            }
+                        }
+                         className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-[2xl text-white bg-blue-900 border-[3px] border-blue-500  hover:bg-white hover:text-blue-900">Buy Now</button>
+                        <button className="w-[200px] h-[50px] cursor-pointer rounded-xl shadow-[2xl text-white bg-blue-600 border-[3px] border-blue-600   hover:bg-white hover:text-blue-900" onClick={
+                            ()=>{
+                                addToCart(product,1)
+                                toast.success("Product added to cart")
+                                console.log(getCart())
+                            }
+                        }>Add to Cart</button>
                     </div>
                     
 
